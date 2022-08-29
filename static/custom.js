@@ -28,9 +28,6 @@ var table = $("table").DataTable({
         {
             text: 'Delete Record',
             className: 'del_record btn btn-danger btn-sm mb-2 mt-2',
-            action: function (e, dt, node, config) {
-                table.row('.selected').remove().draw(false);
-            }
         }
     ],
     select: true,
@@ -40,17 +37,19 @@ var table = $("table").DataTable({
 $("tr").click(function(){
     selected_row= table.row( this ).data()
     selected_row= JSON.stringify(selected_row)
-        $(".del_record").click(function(){
-        console.log(selected_row);
-            $.ajax({
-            url: '/delete_record',
-            type: 'POST',
-            contentType: 'application/json;charset=UTF-8',
-            dataType: "json",
-            data: selected_row,
-            success: function(result) {
-                console.log('deleted sucessfully', selected_row)
-                }
-            });
+        $(".del_record").click(function(){ 
+            if (confirm('Are you sure you want to deleted this record?')){
+                table.row('.selected').remove().draw(false);
+                $.ajax({
+                    url: '/delete_record',
+                    type: 'POST',
+                    contentType: 'application/json;charset=UTF-8',
+                    dataType: "json",
+                    data: selected_row,
+                    success: function(result) {
+                        console.log('deleted sucessfully', selected_row)
+                        }
+                    });
+            }
         });
 });

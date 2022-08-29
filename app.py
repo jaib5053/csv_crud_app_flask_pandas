@@ -7,7 +7,7 @@ app = Flask(__name__)
 PATH = os.getcwd()
 
 # reading the data in the csv file
-FILE_NAME = 'data3.csv'
+FILE_NAME = 'data1.csv'
 df = pd.read_csv(FILE_NAME)
 colNames = df.columns.tolist()
 
@@ -49,7 +49,7 @@ def deleteRecord():
 
 @app.route('/download_file', methods=['GET'])
 def download_file():
-    return send_file(PATH+"/data1.csv", mimetype='text/csv')
+    return send_file(PATH+"/"+FILE_NAME, mimetype='text/csv')
 
 if __name__ == '__main__':
     app.secret_key='wh_csv_app'
