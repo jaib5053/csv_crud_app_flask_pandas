@@ -32,7 +32,7 @@ def addRecord():
         
     return render_template('add_data.html', colNames=colNames)
 
-@app.route('/delete_record', methods=['POST', 'GET'])
+@app.route('/delete_record', methods=['POST'])
 def deleteRecord():
     if request.method=="POST":
         data= request.json
@@ -42,8 +42,8 @@ def deleteRecord():
         try:
             df= df.drop(del_row,axis=0)
             df.to_csv(FILE_NAME, index=False)
-        except:
-            print('Something went wrong!')
+        except Exception as e:
+            print(e)
 
     return render_template('display_data.html')
 

@@ -34,10 +34,12 @@ var table = $("table").DataTable({
 
 });
 
-$("tr").click(function(){
-    selected_row= table.row( this ).data()
+$(".table").on('click','tr', function (e){
+    selected_row= table.row(this).data()
     selected_row= JSON.stringify(selected_row)
-        $(".del_record").click(function(){ 
+    // console.log(selected_row)
+    $(".del_record").off('click').on('click', function (e) {
+            // console.log(selected_row)
             if (confirm('Are you sure you want to deleted this record?')){
                 table.row('.selected').remove().draw(false);
                 $.ajax({
